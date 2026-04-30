@@ -1,0 +1,16 @@
+---
+type Props = {
+  href: string;
+  showArrow?: boolean;
+};
+
+const { href, showArrow = true } = Astro.props;
+const isExternal = /^https?:\/\//.test(href);
+---
+
+<a
+  href={href}
+  {...isExternal ? { target: '_blank', rel: 'noopener noreferrer' } : {}}
+>
+  <slot />{isExternal && showArrow && <span class="arrow" aria-hidden="true">↗</span>}
+</a>

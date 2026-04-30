@@ -1,0 +1,48 @@
+---
+import { projects } from '../data/projects.ts';
+import ExternalLink from './ExternalLink.astro';
+---
+
+<ul class="projects">
+  {
+    projects.map((project) => {
+      const titleNode = project.url ? (
+        <ExternalLink href={project.url} showArrow={false}>{project.title}</ExternalLink>
+      ) : (
+        <span class="project-title">{project.title}</span>
+      );
+
+      if (project.details) {
+        return (
+          <li>
+            <details class="project">
+              <summary>
+                <div class="project-summary">
+                  <div>
+                    <span class="project-title">{titleNode}</span>
+                    <span class="marker" aria-hidden="true">+</span>
+                    <p class="project-description">{project.description}</p>
+                  </div>
+                  {project.year && <span class="project-year">{project.year}</span>}
+                </div>
+              </summary>
+              <p class="project-details">{project.details}</p>
+            </details>
+          </li>
+        );
+      }
+
+      return (
+        <li class="project">
+          <div class="project-summary">
+            <div>
+              <span class="project-title">{titleNode}</span>
+              <p class="project-description">{project.description}</p>
+            </div>
+            {project.year && <span class="project-year">{project.year}</span>}
+          </div>
+        </li>
+      );
+    })
+  }
+</ul>

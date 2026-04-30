@@ -1,0 +1,39 @@
+---
+import Base from '../layouts/Base.astro';
+import ExternalLink from '../components/ExternalLink.astro';
+import ProjectList from '../components/ProjectList.astro';
+---
+
+<Base>
+  <header>
+    <h1>Kevin Korpi</h1>
+    <p class="tagline">Designer & engineer.</p>
+  </header>
+
+  <section aria-label="About">
+    <p>
+      A short bio goes here. Two to four sentences describing what you do, where
+      you are, and what you're currently working on. Drop inline links like
+      <ExternalLink href="https://example.com">this one</ExternalLink>
+      where they belong.
+    </p>
+  </section>
+
+  <hr />
+
+  <section aria-labelledby="projects-heading">
+    <h2 id="projects-heading">Projects</h2>
+    <ProjectList />
+  </section>
+
+  <hr />
+
+  <section aria-labelledby="contact-heading">
+    <h2 id="contact-heading">Elsewhere</h2>
+    <ul class="contact">
+      <li><ExternalLink href="mailto:hello@korpi.co">hello@korpi.co</ExternalLink></li>
+      <li><ExternalLink href="https://github.com/">GitHub</ExternalLink></li>
+      <li><ExternalLink href="https://www.linkedin.com/">LinkedIn</ExternalLink></li>
+    </ul>
+  </section>
+</Base>
