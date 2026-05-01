@@ -1,15 +1,38 @@
 ---
+import '@fontsource-variable/geist-mono';
 import '../styles/global.css';
+
+// ───────────────────────────────────────────────────────────────────
+// Site-wide defaults — edit here for every page at once.
+// Per-page overrides: pass props to <Base title="..." />
+// ───────────────────────────────────────────────────────────────────
+const SITE = {
+  name: 'Kevin Korpi',
+  title: 'Kevin Korpi — Product Designer + Photographer',
+  description:
+    'Kevin Korpi is a product designer and photographer in Bend, Oregon. 25+ years of 0→1 product design across software, hardware, cameras, and AI.',
+  ogImage: '/og.jpg', // drop a 1200×630 image at public/og.jpg
+  twitter: '@kevkor', // optional, leave empty string '' to omit
+  locale: 'en_US',
+  themeColor: '#0A0A0A',
+};
 
 type Props = {
   title?: string;
   description?: string;
+  ogImage?: string;
+  noIndex?: boolean;
 };
 
 const {
-  title = 'Kevin Korpi',
-  description = 'Personal site of Kevin Korpi.',
+  title = SITE.title,
+  description = SITE.description,
+  ogImage = SITE.ogImage,
+  noIndex = false,
 } = Astro.props;
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site ?? Astro.url).href;
+const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).href;
 ---
 
 <!doctype html>
@@ -18,11 +41,36 @@ const {
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
+    <meta name="color-scheme" content="dark" />
+    <meta name="theme-color" content={SITE.themeColor} />
+
+    <title>{title}</title>
     <meta name="description" content={description} />
-    <meta name="color-scheme" content="light dark" />
+    <link rel="canonical" href={canonicalURL} />
+    {noIndex && <meta name="robots" content="noindex, nofollow" />}
+
+    <!-- Open Graph -->
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content={SITE.name} />
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:url" content={canonicalURL} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:locale" content={SITE.locale} />
+
+    <!-- Twitter -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+    {SITE.twitter && <meta name="twitter:creator" content={SITE.twitter} />}
+
+    <link rel="preconnect" href="https://rsms.me/" crossorigin />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
     <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <link rel="icon" href="/favicon.ico" />
-    <title>{title}</title>
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
   </head>
   <body>
     <main>

@@ -8,4 +8,5 @@ export default defineConfig({
   site: 'https://korpi.co',
   output: 'static',
   adapter: vercel(),
+  devToolbar: { enabled: false },
 });

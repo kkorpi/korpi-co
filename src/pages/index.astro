@@ -1,39 +1,122 @@
 ---
 import Base from '../layouts/Base.astro';
+import { Image } from 'astro:assets';
 import ExternalLink from '../components/ExternalLink.astro';
 import ProjectList from '../components/ProjectList.astro';
+
+// Drop more images in src/assets/ and add them here. They'll auto-cycle.
+import kwk from '../assets/kwk.jpg';
+import kwk2 from '../assets/kwk2.jpg';
+import kwk3 from '../assets/kwk3.jpg';
+import kwk4 from '../assets/kwk4.jpg';
+import kwk5 from '../assets/kwk5.jpg';
+
+const heroImages = [kwk,kwk2,kwk3,kwk4,kwk5];
 ---
 
 <Base>
   <header>
     <h1>Kevin Korpi</h1>
-    <p class="tagline">Designer & engineer.</p>
+    <p class="tagline">Product Designer</p>
+    <div class="hero-gallery">
+      {
+        heroImages.map((img, i) => (
+          <Image
+            src={img}
+            alt={i === 0 ? 'Kevin Korpi Product Designer + Photographer' : ''}
+            class:list={['hero-image', { 'is-active': i === 0 }]}
+          />
+        ))
+      }
+    </div>
   </header>
 
-  <section aria-label="About">
-    <p>
-      A short bio goes here. Two to four sentences describing what you do, where
-      you are, and what you're currently working on. Drop inline links like
-      <ExternalLink href="https://example.com">this one</ExternalLink>
-      where they belong.
+  <section aria-label="About" class="about">
+    <p>I've been designing 0→1 products for 25+ years. Software, hardware, cameras, creator tools, AI. After bumming around as an English editor with my Pentax K1000 film camera and snowboard in Hokkaido, I got my start in Tokyo writing copy at a tiny Japanese studio, then slid into design and never really left.</p>
+    <p>Seattle → Tokyo → Hokkaido → Tokyo → Seattle → Bend, Oregon. I was raised on skateboarding, snowboarding, and punk rock, and never outgrew any of it. Usually have a camera on me.
     </p>
+<p>I work with founders on early-stage products through <ExternalLink href="https://holdfast.studio">Hold Fast Studio</ExternalLink>
   </section>
 
-  <hr />
+  <section aria-labelledby="contact-heading" class="elsewhere">
+    <h2 id="contact-heading">Elsewhere</h2>
+    <ul class="contact">
+      <li><ExternalLink href="https://holdfast.studio">Hold Fast Studio</ExternalLink></li>
+      <li><ExternalLink href="https://www.linkedin.com/in/kevkor">LinkedIn</ExternalLink></li>
+      <li><ExternalLink href="https://instagram.com/kevkor">Instagram</ExternalLink></li>
+      <li><ExternalLink href="https://kevkor.substack.com">Writing</ExternalLink></li>
+     <li><ExternalLink href="mailto:kevin@korpi.co">Email</ExternalLink></li>
+    </ul>
+  </section>
 
   <section aria-labelledby="projects-heading">
-    <h2 id="projects-heading">Projects</h2>
+    <h2 id="projects-heading">Highlights</h2>
     <ProjectList />
   </section>
 
-  <hr />
-
-  <section aria-labelledby="contact-heading">
-    <h2 id="contact-heading">Elsewhere</h2>
-    <ul class="contact">
-      <li><ExternalLink href="mailto:hello@korpi.co">hello@korpi.co</ExternalLink></li>
-      <li><ExternalLink href="https://github.com/">GitHub</ExternalLink></li>
-      <li><ExternalLink href="https://www.linkedin.com/">LinkedIn</ExternalLink></li>
-    </ul>
-  </section>
+  <footer class="footer">
+    <time class="clock-time">
+      <span class="clock-digits">
+        <span data-clock-h>--</span><span class="clock-colon">:</span><span data-clock-m>--</span><span class="clock-colon">:</span><span class="clock-sec"><span class="digit-window"><span class="digit-strip" data-clock-s-tens><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span></span></span><span class="digit-window"><span class="digit-strip" data-clock-s-ones><span>0</span><span>1</span><span>2</span><span>3</span><span>4</span><span>5</span><span>6</span><span>7</span><span>8</span><span>9</span></span></span></span>
+      </span>
+      <span class="clock-ampm" data-clock-ampm>--</span>
+    </time> in Bend, Oregon
+  </footer>
 </Base>
+
+<script>
+  // Hero gallery cross-fade cycle
+  const gallery = document.querySelector<HTMLElement>('.hero-gallery');
+  if (gallery && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.hero-image')];
+    if (imgs.length > 1) {
+      let i = 0;
+      setInterval(() => {
+        imgs[i].classList.remove('is-active');
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('is-active');
+      }, 3000);
+    }
+  }
+
+  const elH = document.querySelector<HTMLElement>('[data-clock-h]');
+  const elM = document.querySelector<HTMLElement>('[data-clock-m]');
+  const elSTens = document.querySelector<HTMLElement>('[data-clock-s-tens]');
+  const elSOnes = document.querySelector<HTMLElement>('[data-clock-s-ones]');
+  const elAmpm = document.querySelector<HTMLElement>('[data-clock-ampm]');
+
+  if (elH && elM && elSTens && elSOnes && elAmpm) {
+    const fmt = new Intl.DateTimeFormat('en-US', {
+      timeZone: 'America/Los_Angeles',
+      hour12: true,
+      hour: '2-digit',
+      minute: '2-digit',
+      second: '2-digit',
+    });
+
+    const tick = () => {
+      const parts = fmt.formatToParts(new Date());
+      const get = (type: string) =>
+        parts.find((p) => p.type === type)?.value ?? '';
+
+      const h = get('hour');
+      const m = get('minute');
+      const s = parseInt(get('second'), 10) || 0;
+      const ampm = get('dayPeriod');
+
+      if (elH.textContent !== h) elH.textContent = h;
+      if (elM.textContent !== m) elM.textContent = m;
+      if (elAmpm.textContent !== ampm) elAmpm.textContent = ampm;
+
+      elSTens.style.transform = `translateY(-${Math.floor(s / 10)}em)`;
+      elSOnes.style.transform = `translateY(-${s % 10}em)`;
+    };
+
+    tick();
+    const offsetToNextSecond = 1000 - (Date.now() % 1000);
+    setTimeout(() => {
+      tick();
+      setInterval(tick, 1000);
+    }, offsetToNextSecond);
+  }
+</script>

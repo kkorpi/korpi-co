@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@astrojs/vercel": "^10.0.6",
+    "@fontsource-variable/geist-mono": "^5.2.7",
     "astro": "^6.2.1"
   }
 }
