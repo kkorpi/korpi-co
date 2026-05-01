@@ -9,4 +9,5 @@ export default defineConfig({
   output: 'static',
   adapter: vercel(),
   devToolbar: { enabled: false },
+  server: { port: Number(process.env.PORT) || 4321 },
 });

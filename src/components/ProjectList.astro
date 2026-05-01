@@ -47,7 +47,10 @@ import ExternalLink from './ExternalLink.astro';
                     class="project-image"
                     src={project.image}
                     alt={project.imageAlt ?? ''}
-                    loading="lazy"
+                    width={2162}
+                    height={1390}
+                    loading="eager"
+                    fetchpriority="low"
                     decoding="async"
                   />
                 )}
