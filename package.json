@@ -14,6 +14,13 @@
   "dependencies": {
     "@astrojs/vercel": "^10.0.6",
     "@fontsource-variable/geist-mono": "^5.2.7",
-    "astro": "^6.2.1"
+    "astro": "^6.2.1",
+    "sharp": "^0.34.5"
+  },
+  "pnpm": {
+    "onlyBuiltDependencies": [
+      "esbuild",
+      "sharp"
+    ]
   }
 }
