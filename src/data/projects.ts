@@ -108,18 +108,6 @@ export const projects: Project[] = [
     details:
       'Katalyst is a four-piece electrical muscle stimulation suit paired with an iPad app. The kind of product where every step from unbox to first workout has to land or the user bails. I worked on that arc: opening the box, getting into the suit, pairing it to the iPad, the calibration ramp, and walking a first-time user through their first session. Onboarding for hardware where the cost of a single rough step is "That hurt, I never wear it again."',
   },
-
-  {
-    title: 'Mapbox',
-    description: 'Multi-stop navigation and dispatch console for delivery fleets.',
-    year: '2020–2021',
-    image: '/projects/p-mapbox.png',
-    imageAlt: 'Multi-stop navigation and dispatch console for delivery fleets.',  // optional
-    url: 'https://www.holdfast.studio/work/mapbox',
-    urlLabel: 'Case Study @ Hold Fast Studio',
-    details:
-      'Straightaway was Mapbox\'s bet on a better experience for professional drivers. I designed the driver app and the planning/dispatch surface that fed it. Clients included FedEx, UPS, and USPS — the kind of users who notice every extra tap because they\'re doing it five hundred times a day.',
-  },
   {
     title: 'Google Fonts',
     description: 'Lead Product Designer on the Google Fonts redesign.',
@@ -131,6 +119,18 @@ export const projects: Project[] = [
     details:
       'Redesign of the Google Fonts browse, specimen, and pairing experience. Tens of millions of designers and developers come through every month. The old surface was a grid of cards that hadn\'t kept up with variable fonts, icon fonts, or non-Latin scripts.',
   },
+  {
+    title: 'Mapbox',
+    description: 'Multi-stop navigation and dispatch console for delivery fleets.',
+    year: '2020–2021',
+    image: '/projects/p-mapbox.png',
+    imageAlt: 'Multi-stop navigation and dispatch console for delivery fleets.',  // optional
+    url: 'https://www.holdfast.studio/work/mapbox',
+    urlLabel: 'Case Study @ Hold Fast Studio',
+    details:
+      'Straightaway was Mapbox\'s bet on a better experience for professional drivers. I designed the driver app and the planning/dispatch surface that fed it. Clients included FedEx, UPS, and USPS — the kind of users who notice every extra tap because they\'re doing it five hundred times a day.',
+  },
+ 
   {
     title: 'Skin Clinical',
     description: 'AI-powered skin analysis and acne care subscription app.',
