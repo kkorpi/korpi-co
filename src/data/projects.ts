@@ -16,7 +16,7 @@ export const projects: Project[] = [
     description: 'My independent design practice.',
     year: '2019-Present',
     image: '/projects/p-hfs.png',
-    imageAlt: 'Hold Fast Studio',  // optional
+    imageAlt: 'Hold Fast Studio logo — two fists with HOLD FAST tattooed across the knuckles',  // optional
     url: 'https://holdfast.studio',
     urlLabel: 'Hold Fast Studio',
     details:
@@ -31,7 +31,7 @@ export const projects: Project[] = [
     imageAlt: 'Frame.io',  // optional
     urlLabel: 'Frame.io',
     details:
-      'Hired as the only Senior Staff Designer on the Frame.io team. I lead and contribute to initiatives across asset share/review, generative AI features, and third-party integrations.',
+      'Senior Staff Designer at Frame.io, leading initiatives across asset share/review, generative AI features, and third-party integrations.',
   },
   {
     title: 'Simular',
@@ -171,7 +171,7 @@ export const projects: Project[] = [
   },
   {
     title: 'Google Android',
-    description: 'Staff UX Designer on core Android OS features.',
+    description: 'Staff UX Designer on Android phone and contacts.',
     year: '2013–2015',
     image: '/projects/p-dialer.png',
     imageAlt: 'Staff UX Designer on core Android OS features.',  // optional
@@ -219,7 +219,7 @@ export const projects: Project[] = [
     description: 'Leading Design team at a fast-growing Tokyo agency.',
     year: '2000–2002',
     details:
-      'Joined a small Tokyo agency that grew, while I was there, from a handful of people into a 70+ person consultancy working with brands from Timex to Bloomberg and mult-national startups. Led the design team across both Japanese and English-language work — running a bilingual studio is its own kind of design problem, and you learn quickly that the same brief lands very differently in two cultures.',
+      'Joined a small Tokyo agency that grew, while I was there, from a handful of people into a 70+ person consultancy working with brands from Timex to Bloomberg and multi-national startups. Led the design team across both Japanese and English-language work — running a bilingual studio is its own kind of design problem, and you learn quickly that the same brief lands very differently in two cultures.',
   },
   {
     title: 'Prov Communications',
