@@ -25,6 +25,8 @@ const heroImages = [kwk,kwk2,kwk3,kwk4,kwk5];
             src={img}
             alt={i === 0 ? 'Kevin Korpi Product Designer + Photographer' : ''}
             class:list={['hero-image', { 'is-active': i === 0 }]}
+            loading="eager"
+            fetchpriority={i === 0 ? 'high' : 'low'}
           />
         ))
       }
@@ -67,9 +69,19 @@ const heroImages = [kwk,kwk2,kwk3,kwk4,kwk5];
 <script>
   // Hero gallery cross-fade cycle
   const gallery = document.querySelector<HTMLElement>('.hero-gallery');
-  if (gallery && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+  if (gallery) {
     const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.hero-image')];
-    if (imgs.length > 1) {
+
+    // CSS transition needs an initial state to fade from — gate `is-active` opacity on `loaded`.
+    imgs.forEach((img) => {
+      if (img.complete && img.naturalWidth > 0) {
+        img.classList.add('loaded');
+      } else {
+        img.addEventListener('load', () => img.classList.add('loaded'), { once: true });
+      }
+    });
+
+    if (imgs.length > 1 && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
       let i = 0;
       setInterval(() => {
         imgs[i].classList.remove('is-active');

@@ -81,7 +81,7 @@ header h1 {color:#fff}
   pointer-events: none;
 }
 
-.hero-image.is-active {
+.hero-image.is-active.loaded {
   opacity: 1;
 }
 h1 {
