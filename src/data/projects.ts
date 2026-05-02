@@ -80,6 +80,15 @@ export const projects: Project[] = [
       'Branch makes furniture with sensors in them. I designed the iOS app that makes the sensor data worth having: real-time posture feedback via AirPods, standing cues, gentle streaks that don\'t guilt you into submission. First time I\'ve designed for a desk. Ship-shape gamification without the dystopian nudge. Released and in active use.',
   },
   {
+    title: 'Hone Health',
+    description: 'Care plan experience for a precision healthcare platform.',
+    year: '2024',
+    image: '/projects/p-hone.png',
+    imageAlt: 'Care plan experience for a precision healthcare platform.',
+    details:
+      'Hone is a precision healthcare company treating men with hormone and metabolic conditions. I designed the Care Plan experience: how doctors deliver diagnoses and treatment to patients, custom data viz for biomarker test results, and the flow into the Premium subscription. The plan needed to feel clinical enough to trust and personal enough to actually read.',
+  },
+  {
     title: 'GoPro Hero11 Black Mini',
     description: 'On the on-device UX for a new compact camera.',
     year: '2022',
@@ -99,6 +108,7 @@ export const projects: Project[] = [
     details:
       'Katalyst is a four-piece electrical muscle stimulation suit paired with an iPad app. The kind of product where every step from unbox to first workout has to land or the user bails. I worked on that arc: opening the box, getting into the suit, pairing it to the iPad, the calibration ramp, and walking a first-time user through their first session. Onboarding for hardware where the cost of a single rough step is "That hurt, I never wear it again."',
   },
+
   {
     title: 'Mapbox',
     description: 'Multi-stop navigation and dispatch console for delivery fleets.',
@@ -120,6 +130,15 @@ export const projects: Project[] = [
     urlLabel: 'Case Study @ Hold Fast Studio',
     details:
       'Redesign of the Google Fonts browse, specimen, and pairing experience. Tens of millions of designers and developers come through every month. The old surface was a grid of cards that hadn\'t kept up with variable fonts, icon fonts, or non-Latin scripts.',
+  },
+  {
+    title: 'Skin Clinical',
+    description: 'AI-powered skin analysis and acne care subscription app.',
+    year: '2019',
+    image: '/projects/p-skinclinical.png',
+    imageAlt: 'AI-powered skin analysis and acne care subscription app.',
+    details:
+      'Skin Clinical was a zero-to-one iOS app built around an AI model that analyzed a user\'s selfie, scored skin severity, and mapped problem areas back onto the photo. From there it sold them into a personalized subscription skincare plan they could track and re-test against over time. I designed the full experience: capture flow, analysis viz, results, and the ongoing routine.',
   },
   {
     title: 'Moment Pro Camera',
