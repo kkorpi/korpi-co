@@ -20,7 +20,7 @@ export const projects: Project[] = [
     url: 'https://holdfast.studio',
     urlLabel: 'Hold Fast Studio',
     details:
-      'A one-person studio for 0→1 work focusing connected hardware, AI tooling, real-time data viz, subscription apps. I partner with startups and Fortune 50 teams when they need a principal-level designer without the overhead of a full-time hire. Most of the projects below since 2019 came through here.',
+      'A one-person studio for 0→1 work where hardware, software, and AI meet. I embed early with founders and product teams when they need a principal-level designer who ships, not a full-time hire. Most of the projects below since 2019 came through here.',
   },
   {
     title: 'Adobe/Frame.io',
