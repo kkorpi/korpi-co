@@ -68,7 +68,7 @@ export const projects: Project[] = [
     image: '/projects/p-pixel-watch.png',
     imageAlt: 'Freelance UX for next-gen AI features on Pixel Watch.',  // optional
     details:
-      'Early concept work for the first Pixel Watch, well before it shipped. AI features on the wrist: what helps, what gets in the way, what a screen that small can hold without becoming useless. NDA on the specifics. Enough of the thinking ended up in the product that it\'s worth listing.',
+      'Contracted by Google for concept work for a future Pixel Watch generation. AI features on the wrist: what helps, what gets in the way, what a screen that small can hold without becoming useless.',
   },
   {
     title: 'Branch Furniture',
