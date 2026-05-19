@@ -4,6 +4,7 @@ import { Image } from 'astro:assets';
 import ExternalLink from '../components/ExternalLink.astro';
 import ProjectList from '../components/ProjectList.astro';
 import Footer from '../components/Footer.astro';
+import CopyEmail from '../components/CopyEmail.astro';
 
 // Drop more images in src/assets/ and add them here. They'll auto-cycle.
 import kwk from '../assets/kwk.jpg';
@@ -36,10 +37,10 @@ const heroImages = [kwk,kwk2,kwk3,kwk4,kwk6];
   </header>
 
   <section aria-label="About" class="about">
-    <p>I've been designing 0→1 products for 25+ years. Software, hardware, cameras, creator tools, AI. After bumming around as an English editor with my Pentax K1000 film camera and snowboard in Hokkaido, I got my start in Tokyo writing copy at a tiny Japanese studio, then slid into design and never really left.</p>
+    <p>I've been designing 0→1 products for 25+ years. Software, hardware, cameras, creator tools, AI. After bumming around as an English editor with my Pentax K1000 film camera and snowboard in Hokkaido, I got my start in Tokyo writing copy at a tiny Japanese studio, then slid into design and never really left, through a Tokyo agency running a bilingual design team, in-house at the usual big tech suspects, and startups since.</p>
     <p>Seattle → Tokyo → Hokkaido → Tokyo → Seattle → Bend, Oregon. I was raised on skateboarding, snowboarding, and punk rock, and never outgrew any of it. Usually have a camera on me.
     </p>
-<p>I work with founders on early-stage products through <ExternalLink href="https://holdfast.studio">Hold Fast Studio</ExternalLink>.</p>
+<p>I work with founders on early-stage products through <ExternalLink href="https://holdfast.studio">Hold Fast Studio</ExternalLink>. Mostly 0-to-1 work in hardware, software, and AI, where the org doesn't have a playbook yet. Taking on new clients starting mid-July.</p>
   </section>
 
   <section aria-labelledby="contact-heading" class="elsewhere">
@@ -48,7 +49,7 @@ const heroImages = [kwk,kwk2,kwk3,kwk4,kwk6];
       <li><ExternalLink href="https://www.linkedin.com/in/kevkor">LinkedIn</ExternalLink></li>
       <li><ExternalLink href="https://instagram.com/kevkor">Instagram</ExternalLink></li>
       <li><ExternalLink href="https://kevkor.substack.com">Writing</ExternalLink></li>
-     <li><ExternalLink href="mailto:kevin@korpi.co">Email</ExternalLink></li>
+     <li><CopyEmail email="kevin@korpi.co" /></li>
     </ul>
   </section>
 

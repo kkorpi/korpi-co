@@ -1,0 +1,150 @@
+---
+type Props = {
+  email: string;
+};
+const { email } = Astro.props;
+---
+<span class="copy-email">
+  <a href={`mailto:${email}`}><span class="link-text">{email}</span></a>
+  <button class="copy-email__btn" type="button" data-email={email} aria-label="Copy email to clipboard">
+    <span class="copy-email__icons" aria-hidden="true">
+      <svg class="copy-email__icon copy-email__icon--copy" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="9" y="9" width="13" height="13" rx="2"/>
+        <path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/>
+      </svg>
+      <svg class="copy-email__icon copy-email__icon--check" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <polyline points="20 6 9 17 4 12"/>
+      </svg>
+    </span>
+    <span class="copy-email__tip copy-email__tip--idle" aria-hidden="true">Copy</span>
+    <span class="copy-email__tip copy-email__tip--done" aria-hidden="true">Copied</span>
+  </button>
+</span>
+
+<style>
+  .copy-email {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+  }
+
+  .copy-email__btn {
+    position: relative;
+    appearance: none;
+    background: transparent;
+    border: 0;
+    padding: 2px;
+    margin: 0;
+    cursor: pointer;
+    color: var(--muted);
+    display: inline-flex;
+    align-items: center;
+    border-radius: 2px;
+    transition: color 160ms ease;
+  }
+
+  .copy-email__btn:hover,
+  .copy-email__btn:focus-visible {
+    color: var(--heading);
+  }
+
+  .copy-email__btn:focus-visible {
+    outline: 2px solid rgba(255, 255, 255, 0.4);
+    outline-offset: 2px;
+  }
+
+  .copy-email__icons {
+    position: relative;
+    display: inline-block;
+    width: 13px;
+    height: 13px;
+  }
+
+  .copy-email__icon {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    transition:
+      opacity 220ms ease,
+      transform 280ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  }
+
+  .copy-email__icon--copy {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .copy-email__icon--check {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  .copy-email__btn.is-copied .copy-email__icon--copy {
+    opacity: 0;
+    transform: scale(0.5);
+  }
+
+  .copy-email__btn.is-copied .copy-email__icon--check {
+    opacity: 1;
+    transform: scale(1);
+  }
+
+  .copy-email__tip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    transform: translate(-50%, 2px);
+    background: rgba(255, 255, 255, 0.08);
+    color: var(--heading);
+    font-family: var(--font-mono);
+    font-size: 10px;
+    letter-spacing: 0.04em;
+    text-transform: uppercase;
+    padding: 3px 6px;
+    border-radius: 3px;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 160ms ease, transform 160ms ease;
+  }
+
+  .copy-email__btn:hover .copy-email__tip--idle,
+  .copy-email__btn:focus-visible .copy-email__tip--idle {
+    opacity: 1;
+    transform: translate(-50%, 0);
+    transition-delay: 120ms;
+  }
+
+  .copy-email__btn.is-copied .copy-email__tip--idle {
+    opacity: 0;
+    transform: translate(-50%, 2px);
+    transition-delay: 0ms;
+  }
+
+  .copy-email__btn.is-copied .copy-email__tip--done {
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLButtonElement>('.copy-email__btn').forEach((btn) => {
+    btn.addEventListener('click', async () => {
+      const email = btn.dataset.email;
+      if (!email) return;
+      try {
+        await navigator.clipboard.writeText(email);
+        btn.classList.add('is-copied');
+        const originalLabel = btn.getAttribute('aria-label');
+        btn.setAttribute('aria-label', 'Email copied');
+        window.setTimeout(() => {
+          btn.classList.remove('is-copied');
+          if (originalLabel) btn.setAttribute('aria-label', originalLabel);
+        }, 1600);
+      } catch {
+        // best effort: mailto: link still works as fallback
+      }
+    });
+  });
+</script>

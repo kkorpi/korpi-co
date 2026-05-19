@@ -95,10 +95,15 @@ h2 {
 p {
   margin: 0 0 1rem;
   font-weight: 350;
+  text-wrap: pretty;
 }
 
 p:last-child {
   margin-bottom: 0;
+}
+
+p a {
+  font-weight: 500;
 }
 
 .tagline {
@@ -225,19 +230,6 @@ a:focus-visible {
   border-radius: 2px;
 }
 
-.arrow {
-  display: inline-block;
-  margin-left: 0.1em;
-  font-size: 0.8em;
-  vertical-align: 0.12em;
-  transition: transform 160ms ease;
-}
-
-a:hover .arrow,
-a:focus-visible .arrow {
-  transform: translate(0.1em, -0.1em);
-}
-
 ul.contact {
   list-style: none;
   padding: 0;
@@ -256,6 +248,12 @@ ul.contact li {
 }
 
 .contact li a {color: var(--fg)}
+
+.contact li a:hover,
+.contact li a:focus-visible {
+  color: var(--heading);
+  opacity: 1;
+}
 
 ul.contact li:not(:last-child)::after {
   content: "·";
