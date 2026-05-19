@@ -1,6 +1,7 @@
 ---
 import '@fontsource-variable/geist-mono';
 import '../styles/global.css';
+import Analytics from '@vercel/analytics/astro';
 
 // ───────────────────────────────────────────────────────────────────
 // Site-wide defaults, edit here for every page at once.
@@ -76,5 +77,6 @@ const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).href;
     <main>
       <slot />
     </main>
+    <Analytics />
   </body>
 </html>
