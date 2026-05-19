@@ -44,12 +44,13 @@ body {
 main {
   max-width: var(--max-width);
   margin: 0 auto;
-  padding: 5rem 1.5rem 6rem;
+  padding: 5rem 1.5rem 4rem;
 }
 
 @media (max-width: 480px) {
   main {
     padding-top: 3rem;
+    padding-inline: 1rem;
   }
 }
 
@@ -135,7 +136,7 @@ hr {
   font-size: 10px;
   text-transform: uppercase;
   letter-spacing: 0.02em;
-  padding: 32px 0 60px 0;
+  padding: 32px 0 0 0;
   display: flex;
   flex-wrap: wrap;
   align-items: baseline;
