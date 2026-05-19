@@ -1,0 +1,49 @@
+---
+const year = new Date().getFullYear();
+const EMAIL = 'kevin@holdfast.studio';
+---
+
+<footer class="footer">
+  <div class="footer__left">
+    <span class="footer__brand">
+      <span>©{year}</span>
+      <span class="footer__bolt" aria-hidden="true"></span>
+      <span>HFS</span>
+    </span>
+
+  </div>
+
+  <div class="footer__right">
+    <span class="footer__clock">
+      <time data-local-clock aria-label="Local time in Bend, Oregon">--:-- --</time> in Bend, Oregon<svg class="footer__heart" viewBox="0 0 24 24" aria-hidden="true">
+        <path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.29 1.51 4.04 3 5.5l7 7Z"/>
+      </svg>
+    </span>
+    <span class="footer__sep" aria-hidden="true">·</span>
+    <a href="#" data-scroll-top>Top <span aria-hidden="true">↑</span></a>
+  </div>
+</footer>
+
+<script>
+  const fmt = new Intl.DateTimeFormat('en-US', {
+    timeZone: 'America/Los_Angeles',
+    hour12: true,
+    hour: '2-digit',
+    minute: '2-digit',
+  });
+
+  const tick = () => {
+    const value = fmt.format(new Date());
+    document.querySelectorAll<HTMLTimeElement>('[data-local-clock]').forEach((el) => {
+      if (el.textContent !== value) el.textContent = value;
+    });
+  };
+
+  tick();
+  setInterval(tick, 15000);
+
+  document.querySelector<HTMLAnchorElement>('[data-scroll-top]')?.addEventListener('click', (e) => {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  });
+</script>
