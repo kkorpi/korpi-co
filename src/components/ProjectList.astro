@@ -254,11 +254,12 @@ import ExternalLink from './ExternalLink.astro';
     document.documentElement.classList.add('fake-cursor-active');
   }
 
-  // Gallery crossfade: cycle stacked project images when a details opens.
+  // Gallery crossfade: cycle stacked project images while a details is open.
   const galleryWrap = document.querySelector<HTMLElement>('.projects-wrap');
   if (galleryWrap) {
     const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     let cycleTimer: number | null = null;
+    let restartScheduled = false;
 
     const setProgressState = (segs: HTMLElement[], activeIdx: number) => {
       segs.forEach((seg, idx) => {
@@ -270,34 +271,52 @@ import ExternalLink from './ExternalLink.astro';
       segs[activeIdx]?.classList.add('is-active');
     };
 
-    galleryWrap.addEventListener(
-      'toggle',
-      (event) => {
-        if (cycleTimer !== null) {
-          window.clearInterval(cycleTimer);
-          cycleTimer = null;
-        }
-        const target = event.target;
-        if (!(target instanceof HTMLDetailsElement) || !target.open || reducedMotion) return;
-        const gallery = target.querySelector<HTMLElement>(
-          '.project-gallery[data-cycle="true"]',
-        );
-        if (!gallery) return;
-        const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.project-image')];
-        if (imgs.length < 2) return;
-        const segs = [
-          ...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg'),
-        ];
-        let i = 0;
-        setProgressState(segs, 0);
-        cycleTimer = window.setInterval(() => {
-          imgs[i].classList.remove('is-active');
-          i = (i + 1) % imgs.length;
-          imgs[i].classList.add('is-active');
-          setProgressState(segs, i);
-        }, 3000);
-      },
-      true,
-    );
+    const restartCycle = () => {
+      if (cycleTimer !== null) {
+        window.clearInterval(cycleTimer);
+        cycleTimer = null;
+      }
+      if (reducedMotion) return;
+
+      // Use the actually-open details in the DOM, not event.target — the
+      // accordion fires both close + open events and target.open of the
+      // close event would short-circuit the handler.
+      const openDetails = galleryWrap.querySelector<HTMLDetailsElement>(
+        'details.project[open]',
+      );
+      if (!openDetails) return;
+      const gallery = openDetails.querySelector<HTMLElement>(
+        '.project-gallery[data-cycle="true"]',
+      );
+      if (!gallery) return;
+      const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.project-image')];
+      if (imgs.length < 2) return;
+      const segs = [...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg')];
+
+      // Reset image state in case this gallery was previously left mid-cycle.
+      imgs.forEach((img, idx) => img.classList.toggle('is-active', idx === 0));
+      let i = 0;
+      setProgressState(segs, 0);
+
+      cycleTimer = window.setInterval(() => {
+        imgs[i].classList.remove('is-active');
+        i = (i + 1) % imgs.length;
+        imgs[i].classList.add('is-active');
+        setProgressState(segs, i);
+      }, 3000);
+    };
+
+    // Coalesce the close+open toggle pair into a single restart per frame so we
+    // don't restart the cycle twice (which causes a visible blip).
+    const scheduleRestart = () => {
+      if (restartScheduled) return;
+      restartScheduled = true;
+      requestAnimationFrame(() => {
+        restartScheduled = false;
+        restartCycle();
+      });
+    };
+
+    galleryWrap.addEventListener('toggle', scheduleRestart, true);
   }
 </script>
