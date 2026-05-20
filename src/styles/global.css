@@ -610,6 +610,41 @@ main > *:nth-child(6) { animation-delay: 450ms; }
 main > *:nth-child(7) { animation-delay: 540ms; }
 main > *:nth-child(8) { animation-delay: 630ms; }
 
+.not-found {
+  position: fixed;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: 2rem;
+  background: var(--bg);
+  gap: 1.5rem;
+}
+
+.not-found__title {
+  display: flex;
+  flex-direction: column;
+  font-family: var(--font-sans);
+  color: var(--heading);
+  font-size: clamp(64px, 18vw, 150px);
+  font-weight: 900;
+  letter-spacing: 0;
+  line-height: 0.9;
+  margin: 0;
+  text-transform: uppercase;
+}
+
+.not-found__title span {
+  display: block;
+}
+
+.not-found__body {
+  color: var(--fg);
+  margin: 0;
+}
+
 @media (prefers-reduced-motion: reduce) {
   *,
   *::before,
