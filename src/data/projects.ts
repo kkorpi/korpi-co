@@ -112,7 +112,7 @@ export const projects: Project[] = [
   },
   {
     title: 'GoPro Hero11 Black Mini',
-    description: 'On the on-device UX for a new compact camera.',
+    description: 'On-device UX for a new compact camera.',
     year: '2022',
     image: [
       '/projects/gopro-1.png',
