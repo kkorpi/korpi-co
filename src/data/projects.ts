@@ -5,7 +5,7 @@ export type Project = {
   urlLabel?: string;
   year?: string;
   details?: string;
-  image?: string;
+  image?: string | string[];
   imageAlt?: string;
   open?: boolean;
 };
@@ -34,8 +34,15 @@ export const projects: Project[] = [
   {
     title: 'Simular',
     description: 'Multi-agent platform where agents do real work on their own computers.',
-    year: 'Current Hold Fast Studio Client',
-    image: '/projects/p-simular.png',
+    year: 'Current Client',
+    image: [
+      '/projects/p-simular-1.png',
+      '/projects/p-simular-2.png',
+      '/projects/p-simular-3.png',
+      '/projects/p-simular-4.png',
+      '/projects/p-simular-5.png',
+
+    ],    
     imageAlt: 'Simular multi-agent computer use platform.',  // optional
     details:
       'Embedded early, designing the surfaces where humans and agents co-operate: task handoff, inspection, interruption, repair. The hard part isn\'t the clicking. It\'s making agents comprehensible enough that people trust them without babysitting every step. Legibility is the product. If you can\'t see what it\'s about to do and why, you can\'t let it run.',
@@ -43,7 +50,7 @@ export const projects: Project[] = [
   {
     title: 'Superpilot',
     description: 'AI search visibility and landing page generation for ecommerce.',
-    year: 'Current Hold Fast Studio Client',
+    year: 'Current Client',
     image: '/projects/p-superpilot.png',
     imageAlt: 'AI search visibility and landing page generation for ecommerce.',
     details:
@@ -82,7 +89,14 @@ export const projects: Project[] = [
     title: 'Branch Furniture',
     description: 'Native iOS desk-connected posture sensing app.',
     year: '2023–2024',
-    image: '/projects/p-branch.png',
+    image: [
+      '/projects/branch01.png',
+      '/projects/branch02.png',
+      '/projects/branch03.png',
+      '/projects/branch04.png',
+      '/projects/branch05.png',
+
+    ],   
     imageAlt: 'Native iOS desk-connected posture sensing app.',  // optional
     details:
       'Branch makes furniture with sensors in them. I designed the iOS app that makes the sensor data worth having: real-time posture feedback via AirPods, standing cues, gentle streaks that don\'t guilt you into submission. First time I\'ve designed for a desk. Ship-shape gamification without the dystopian nudge. Released and in active use.',
@@ -100,7 +114,14 @@ export const projects: Project[] = [
     title: 'GoPro Hero11 Black Mini',
     description: 'On the on-device UX for a new compact camera.',
     year: '2022',
-    image: '/projects/p-gopro.png',
+    image: [
+      '/projects/gopro-1.png',
+      '/projects/gopro-2.png',
+      '/projects/gopro-3.png',
+      '/projects/gopro-4.png',
+      '/projects/gopro-5.png',
+      '/projects/gopro-6.png',
+    ],    
     imageAlt: 'On the on-device UX for a new compact camera.',  // optional
     details:
       'GoPro wanted to ship a smaller, more durable Hero: no touchscreen, two buttons, 72×32 pixel two-color screen. The design problem was a full-featured camera UX on 8-bit hardware that a snowboarder in whiteout conditions could operate without looking. I led the UX end to end.',
@@ -146,7 +167,15 @@ export const projects: Project[] = [
     title: 'Moment Pro Camera',
     description: 'Design Director and Head of Apps Products.',
     year: '2017–2019',
-    image: '/projects/p-moment.png',
+    image: [
+      '/projects/moment-1.png',
+      '/projects/moment-2.png',
+      '/projects/moment-3.png',
+      '/projects/moment-4.png',
+      '/projects/moment-5.png',
+      '/projects/moment-6.png',
+      '/projects/moment-7.png',
+    ],   
     imageAlt: 'Design Director and Head of Apps Products.',  // optional
     details:
       'Moment was a hardware company that needed a software business. I led that zero to one: a pro camera app built around the thesis that creators wanted real tools, not filters. Manual controls, RAW, focus peaking, zebras, a histogram that didn\'t lie. SLR feel on a phone screen without making the phone screen feel like an SLR.',

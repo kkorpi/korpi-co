@@ -504,13 +504,74 @@ details.project[open]::details-content {
   display: flow-root;
 }
 
+.project-gallery {
+  margin: 8px 0 24px 0;
+}
+
+.project-gallery__images {
+  display: grid;
+  grid-template-areas: "stack";
+  border-radius: 4px;
+  overflow: hidden;
+  background: rgba(255, 255, 255, 0.03);
+}
+
 .project-image {
+  grid-area: stack;
   display: block;
   width: 100%;
   height: auto;
-  margin: 8px 0 24px 0;
-  border-radius: 4px;
-  background: rgba(255, 255, 255, 0.03);
+  opacity: 0;
+  transition: opacity 500ms ease-in-out;
+  pointer-events: none;
+}
+
+.project-image.is-active {
+  opacity: 1;
+}
+
+.gallery-progress {
+  display: flex;
+  gap: 4px;
+  margin-top: 8px;
+  pointer-events: none;
+}
+
+.gallery-progress__seg {
+  position: relative;
+  flex: 1;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.10);
+  border-radius: 1px;
+  overflow: hidden;
+}
+
+.gallery-progress__seg::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  width: 0;
+  background: rgba(255, 255, 255, 0.60);
+  border-radius: inherit;
+}
+
+.gallery-progress__seg.is-active::before {
+  animation: gallery-progress-fill 3000ms linear forwards;
+}
+
+.gallery-progress__seg.is-filled::before {
+  width: 100%;
+}
+
+@keyframes gallery-progress-fill {
+  from { width: 0; }
+  to { width: 100%; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .gallery-progress {
+    display: none;
+  }
 }
 
 .project-details p {

@@ -14,6 +14,11 @@ import ExternalLink from './ExternalLink.astro';
     {
       projects.map((project) => {
         const expandable = Boolean(project.details || project.url);
+        const images = Array.isArray(project.image)
+          ? project.image
+          : project.image
+            ? [project.image]
+            : [];
 
         const summary = (
           <div class="project-summary">
@@ -42,17 +47,33 @@ import ExternalLink from './ExternalLink.astro';
             <details class="project" name="projects" open={project.open}>
               <summary>{summary}</summary>
               <div class="project-details">
-                {project.image && (
-                  <img
-                    class="project-image"
-                    src={project.image}
-                    alt={project.imageAlt ?? ''}
-                    width={2162}
-                    height={1390}
-                    loading="eager"
-                    fetchpriority="low"
-                    decoding="async"
-                  />
+                {images.length > 0 && (
+                  <div
+                    class="project-gallery"
+                    data-cycle={images.length > 1 ? 'true' : undefined}
+                  >
+                    <div class="project-gallery__images">
+                      {images.map((src, i) => (
+                        <img
+                          class:list={['project-image', { 'is-active': i === 0 }]}
+                          src={src}
+                          alt={i === 0 ? (project.imageAlt ?? '') : ''}
+                          width={2162}
+                          height={1390}
+                          loading={i === 0 ? 'eager' : 'lazy'}
+                          fetchpriority="low"
+                          decoding="async"
+                        />
+                      ))}
+                    </div>
+                    {images.length > 1 && (
+                      <div class="gallery-progress" aria-hidden="true">
+                        {images.map(() => (
+                          <span class="gallery-progress__seg"></span>
+                        ))}
+                      </div>
+                    )}
+                  </div>
                 )}
                 {project.details && <p>{project.details}</p>}
                 {(project.year || project.url) && (
@@ -231,5 +252,52 @@ import ExternalLink from './ExternalLink.astro';
     });
 
     document.documentElement.classList.add('fake-cursor-active');
+  }
+
+  // Gallery crossfade: cycle stacked project images when a details opens.
+  const galleryWrap = document.querySelector<HTMLElement>('.projects-wrap');
+  if (galleryWrap) {
+    const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    let cycleTimer: number | null = null;
+
+    const setProgressState = (segs: HTMLElement[], activeIdx: number) => {
+      segs.forEach((seg, idx) => {
+        seg.classList.remove('is-active', 'is-filled');
+        if (idx < activeIdx) seg.classList.add('is-filled');
+      });
+      // Force reflow so the fill animation restarts cleanly on loop.
+      segs[activeIdx]?.getBoundingClientRect();
+      segs[activeIdx]?.classList.add('is-active');
+    };
+
+    galleryWrap.addEventListener(
+      'toggle',
+      (event) => {
+        if (cycleTimer !== null) {
+          window.clearInterval(cycleTimer);
+          cycleTimer = null;
+        }
+        const target = event.target;
+        if (!(target instanceof HTMLDetailsElement) || !target.open || reducedMotion) return;
+        const gallery = target.querySelector<HTMLElement>(
+          '.project-gallery[data-cycle="true"]',
+        );
+        if (!gallery) return;
+        const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.project-image')];
+        if (imgs.length < 2) return;
+        const segs = [
+          ...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg'),
+        ];
+        let i = 0;
+        setProgressState(segs, 0);
+        cycleTimer = window.setInterval(() => {
+          imgs[i].classList.remove('is-active');
+          i = (i + 1) % imgs.length;
+          imgs[i].classList.add('is-active');
+          setProgressState(segs, i);
+        }, 3000);
+      },
+      true,
+    );
   }
 </script>
