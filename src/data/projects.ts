@@ -37,6 +37,7 @@ export const projects: Project[] = [
     year: 'Current Client',
     image: [
       '/projects/p-simular-1.png',
+      '/projects/p-simular-1b.png',
       '/projects/p-simular-2.png',
       '/projects/p-simular-3.png',
       '/projects/p-simular-4.png',
