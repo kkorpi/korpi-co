@@ -23,3 +23,8 @@ pnpm-debug.log*
 # jetbrains setting folder
 .idea/
 .vercel
+
+# claude code — worktree backups and local settings
+.claude/worktrees/
+.claude/settings.local.json
+

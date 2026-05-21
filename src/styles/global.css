@@ -511,6 +511,7 @@ details.project[open]::details-content {
 .project-gallery__images {
   display: grid;
   grid-template-areas: "stack";
+  aspect-ratio: 2162 / 1390;
   border-radius: 4px;
   overflow: hidden;
   background: rgba(255, 255, 255, 0.03);
@@ -520,7 +521,9 @@ details.project[open]::details-content {
   grid-area: stack;
   display: block;
   width: 100%;
-  height: auto;
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
   opacity: 0;
   transition: opacity 500ms ease-in-out;
   pointer-events: none;
@@ -652,4 +655,23 @@ main > *:nth-child(8) { animation-delay: 630ms; }
     transition: none !important;
     animation: none !important;
   }
+}
+
+/* Scramble entrance: hide [data-scramble] text until JS starts the
+   animation so there's no flash of final copy before scramble begins.
+   Without JS (no .js-scramble on <html>), text is visible immediately. */
+.js-scramble [data-scramble] {
+  visibility: hidden;
+}
+
+.js-scramble.scramble-running [data-scramble],
+.js-scramble.scramble-done [data-scramble] {
+  visibility: visible;
+}
+
+/* During scramble, lock to single line so varying char widths don't
+   wrap the line. Released once scramble-done is set so normal
+   responsive wrapping resumes. */
+.js-scramble.scramble-running:not(.scramble-done) [data-scramble] {
+  white-space: nowrap;
 }

@@ -1,6 +1,18 @@
 ---
 import { projects } from '../data/projects.ts';
 import ExternalLink from './ExternalLink.astro';
+
+const VIDEO_EXTS = new Set(['mp4', 'webm', 'mov', 'm4v']);
+const isVideoSrc = (src: string) => {
+  const ext = src.split('?')[0].split('.').pop()?.toLowerCase() ?? '';
+  return VIDEO_EXTS.has(ext);
+};
+
+type Slide = { src: string; replay?: boolean; isVideo: boolean };
+const toSlide = (item: string | { src: string; replay?: boolean }): Slide => {
+  const obj = typeof item === 'string' ? { src: item } : item;
+  return { ...obj, isVideo: isVideoSrc(obj.src) };
+};
 ---
 
 <div class="projects-wrap">
@@ -14,11 +26,12 @@ import ExternalLink from './ExternalLink.astro';
     {
       projects.map((project) => {
         const expandable = Boolean(project.details || project.url);
-        const images = Array.isArray(project.image)
+        const rawImages = Array.isArray(project.image)
           ? project.image
           : project.image
             ? [project.image]
             : [];
+        const slides = rawImages.map(toSlide);
 
         const summary = (
           <div class="project-summary">
@@ -47,28 +60,43 @@ import ExternalLink from './ExternalLink.astro';
             <details class="project" name="projects" open={project.open}>
               <summary>{summary}</summary>
               <div class="project-details">
-                {images.length > 0 && (
+                {slides.length > 0 && (
                   <div
                     class="project-gallery"
-                    data-cycle={images.length > 1 ? 'true' : undefined}
+                    data-cycle={slides.length > 1 ? 'true' : undefined}
                   >
                     <div class="project-gallery__images">
-                      {images.map((src, i) => (
-                        <img
-                          class:list={['project-image', { 'is-active': i === 0 }]}
-                          src={src}
-                          alt={i === 0 ? (project.imageAlt ?? '') : ''}
-                          width={2162}
-                          height={1390}
-                          loading={i === 0 ? 'eager' : 'lazy'}
-                          fetchpriority="low"
-                          decoding="async"
-                        />
+                      {slides.map((slide, i) => (
+                        slide.isVideo ? (
+                          <video
+                            class:list={['project-image', { 'is-active': i === 0 }]}
+                            src={slide.src}
+                            width={2162}
+                            height={1390}
+                            muted
+                            loop
+                            playsinline
+                            preload="metadata"
+                            aria-label={i === 0 ? (project.imageAlt ?? undefined) : undefined}
+                          ></video>
+                        ) : (
+                          <img
+                            class:list={['project-image', { 'is-active': i === 0 }]}
+                            src={slide.src}
+                            alt={i === 0 ? (project.imageAlt ?? '') : ''}
+                            width={2162}
+                            height={1390}
+                            loading={i === 0 ? 'eager' : 'lazy'}
+                            fetchpriority="low"
+                            decoding="async"
+                            data-replay={slide.replay ? 'true' : undefined}
+                          />
+                        )
                       ))}
                     </div>
-                    {images.length > 1 && (
+                    {slides.length > 1 && (
                       <div class="gallery-progress" aria-hidden="true">
-                        {images.map(() => (
+                        {slides.map(() => (
                           <span class="gallery-progress__seg"></span>
                         ))}
                       </div>
@@ -271,11 +299,53 @@ import ExternalLink from './ExternalLink.astro';
       segs[activeIdx]?.classList.add('is-active');
     };
 
+    // Pause every video in the gallery wrap — used when a details closes.
+    const pauseAllVideos = () => {
+      galleryWrap
+        .querySelectorAll<HTMLVideoElement>('video.project-image')
+        .forEach((v) => v.pause());
+    };
+
+    // Restart an animated image (WebP/GIF with loop=1) by re-assigning src
+    // with a cache-busting fragment. Bytes stay cached; URL change forces
+    // the decoder to reset and replay from frame 1.
+    const restartReplayable = (img: HTMLImageElement) => {
+      const base = img.src.split('#')[0];
+      img.src = `${base}#${Date.now()}`;
+    };
+
+    // Activate slide `idx`: toggle is-active, play active video / pause
+    // others, restart replay-flagged images.
+    const activateSlide = (slides: HTMLElement[], idx: number) => {
+      slides.forEach((slide, n) => {
+        const active = n === idx;
+        slide.classList.toggle('is-active', active);
+        if (slide instanceof HTMLVideoElement) {
+          if (active) {
+            void slide.play().catch(() => {});
+          } else {
+            slide.pause();
+          }
+        } else if (
+          active &&
+          slide instanceof HTMLImageElement &&
+          slide.dataset.replay === 'true'
+        ) {
+          restartReplayable(slide);
+        }
+      });
+    };
+
     const restartCycle = () => {
       if (cycleTimer !== null) {
         window.clearInterval(cycleTimer);
         cycleTimer = null;
       }
+
+      // Whichever details just opened or closed — pause every video first.
+      // The active one in the open gallery will get its play() call below.
+      pauseAllVideos();
+
       if (reducedMotion) return;
 
       // Use the actually-open details in the DOM, not event.target — the
@@ -288,20 +358,34 @@ import ExternalLink from './ExternalLink.astro';
       const gallery = openDetails.querySelector<HTMLElement>(
         '.project-gallery[data-cycle="true"]',
       );
-      if (!gallery) return;
-      const imgs = [...gallery.querySelectorAll<HTMLImageElement>('.project-image')];
-      if (imgs.length < 2) return;
+      if (!gallery) {
+        // Single-slide gallery: still kick off the active slide (so a lone
+        // video plays when the details opens).
+        const singleGallery = openDetails.querySelector<HTMLElement>(
+          '.project-gallery',
+        );
+        if (singleGallery) {
+          const slides = [
+            ...singleGallery.querySelectorAll<HTMLElement>('.project-image'),
+          ];
+          activateSlide(slides, 0);
+        }
+        return;
+      }
+      const slides = [
+        ...gallery.querySelectorAll<HTMLElement>('.project-image'),
+      ];
+      if (slides.length < 2) return;
       const segs = [...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg')];
 
-      // Reset image state in case this gallery was previously left mid-cycle.
-      imgs.forEach((img, idx) => img.classList.toggle('is-active', idx === 0));
+      // Reset to first slide in case this gallery was previously left mid-cycle.
       let i = 0;
+      activateSlide(slides, 0);
       setProgressState(segs, 0);
 
       cycleTimer = window.setInterval(() => {
-        imgs[i].classList.remove('is-active');
-        i = (i + 1) % imgs.length;
-        imgs[i].classList.add('is-active');
+        i = (i + 1) % slides.length;
+        activateSlide(slides, i);
         setProgressState(segs, i);
       }, 3000);
     };

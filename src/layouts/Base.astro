@@ -39,6 +39,12 @@ const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).href;
 <!doctype html>
 <html lang="en">
   <head>
+    <script is:inline>
+      /* Mark JS-capable before any paint so scramble-target CSS hides
+         the text before first paint — prevents flash of final copy
+         before the scramble animation begins. */
+      document.documentElement.classList.add('js-scramble');
+    </script>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta name="generator" content={Astro.generator} />
@@ -78,5 +84,94 @@ const ogImageURL = new URL(ogImage, Astro.site ?? Astro.url).href;
       <slot />
     </main>
     <Analytics />
+    <script>
+      // One-shot text scramble for elements tagged with [data-scramble].
+      // Replaces each character with random chars from a symbol pool every
+      // frame, gradually settling per-position to the target text. Awaits
+      // document.fonts.ready so width-lock measurements use the final font.
+      {
+        const SYMBOL_CHARS = '!<>-_\\/[]{}—=+*^?#0123456789';
+        const FRAME_MS = 1000 / 60;
+
+        type Slot = { target: string; settleAt: number; current: string };
+
+        const scrambleText = (
+          el: HTMLElement,
+          duration: number,
+        ): Promise<void> => {
+          const target = el.textContent ?? '';
+          const totalFrames = Math.max(1, Math.round(duration / FRAME_MS));
+          const queue: Slot[] = [...target].map((ch) => ({
+            target: ch,
+            settleAt:
+              Math.floor(totalFrames * 0.2) +
+              Math.floor(Math.random() * totalFrames * 0.75),
+            current: ch,
+          }));
+
+          return new Promise((resolve) => {
+            let frame = 0;
+            const step = () => {
+              let done = 0;
+              for (const slot of queue) {
+                if (slot.target === ' ' || slot.target === ' ') {
+                  slot.current = slot.target;
+                  done++;
+                } else if (frame >= slot.settleAt) {
+                  slot.current = slot.target;
+                  done++;
+                } else {
+                  slot.current =
+                    SYMBOL_CHARS[
+                      Math.floor(Math.random() * SYMBOL_CHARS.length)
+                    ];
+                }
+              }
+              el.textContent = queue.map((q) => q.current).join('');
+              if (done === queue.length) {
+                el.textContent = target;
+                resolve();
+              } else {
+                frame++;
+                requestAnimationFrame(step);
+              }
+            };
+            step();
+          });
+        };
+
+        const targets = [
+          ...document.querySelectorAll<HTMLElement>('[data-scramble]'),
+        ];
+        const reduced = window.matchMedia(
+          '(prefers-reduced-motion: reduce)',
+        ).matches;
+
+        if (targets.length) {
+          if (reduced) {
+            // Skip the animation; just reveal final text.
+            document.documentElement.classList.add('scramble-done');
+          } else {
+            (async () => {
+              await document.fonts.ready;
+              // Lock widths so symbol/Latin char-width differences don't
+              // jitter surrounding layout while scrambling.
+              targets.forEach((el) => {
+                const w = el.getBoundingClientRect().width;
+                el.style.minWidth = `${Math.ceil(w)}px`;
+              });
+              document.documentElement.classList.add('scramble-running');
+              await Promise.all(
+                targets.map((el, i) => scrambleText(el, 1300 + i * 150)),
+              );
+              document.documentElement.classList.add('scramble-done');
+              targets.forEach((el) => {
+                el.style.minWidth = '';
+              });
+            })();
+          }
+        }
+      }
+    </script>
   </body>
 </html>
