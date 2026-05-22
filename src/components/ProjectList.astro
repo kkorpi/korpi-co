@@ -336,11 +336,32 @@ const toSlide = (item: string | { src: string; replay?: boolean }): Slide => {
       });
     };
 
+    // State for the currently-cycling gallery — exposed so the click
+    // handler can advance and restart the timer from outside restartCycle.
+    let cycleState: {
+      slides: HTMLElement[];
+      segs: HTMLElement[];
+      i: number;
+    } | null = null;
+
+    const tick = () => {
+      if (!cycleState) return;
+      cycleState.i = (cycleState.i + 1) % cycleState.slides.length;
+      activateSlide(cycleState.slides, cycleState.i);
+      setProgressState(cycleState.segs, cycleState.i);
+    };
+
+    const startTimer = () => {
+      if (cycleTimer !== null) window.clearInterval(cycleTimer);
+      cycleTimer = window.setInterval(tick, 3000);
+    };
+
     const restartCycle = () => {
       if (cycleTimer !== null) {
         window.clearInterval(cycleTimer);
         cycleTimer = null;
       }
+      cycleState = null;
 
       // Whichever details just opened or closed — pause every video first.
       // The active one in the open gallery will get its play() call below.
@@ -376,19 +397,29 @@ const toSlide = (item: string | { src: string; replay?: boolean }): Slide => {
         ...gallery.querySelectorAll<HTMLElement>('.project-image'),
       ];
       if (slides.length < 2) return;
-      const segs = [...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg')];
+      const segs = [
+        ...gallery.querySelectorAll<HTMLElement>('.gallery-progress__seg'),
+      ];
 
       // Reset to first slide in case this gallery was previously left mid-cycle.
-      let i = 0;
+      cycleState = { slides, segs, i: 0 };
       activateSlide(slides, 0);
       setProgressState(segs, 0);
-
-      cycleTimer = window.setInterval(() => {
-        i = (i + 1) % slides.length;
-        activateSlide(slides, i);
-        setProgressState(segs, i);
-      }, 3000);
+      startTimer();
     };
+
+    // Click anywhere inside the cycling gallery's image stack → advance.
+    // Restart the timer so the user gets a full slot on the manually advanced
+    // slide before the auto-cycle ticks again. Ignore clicks on links inside.
+    galleryWrap.addEventListener('click', (e) => {
+      if (!cycleState) return;
+      const target = e.target as HTMLElement | null;
+      if (!target) return;
+      if (target.closest('a, button, input, textarea, select')) return;
+      if (!target.closest('.project-gallery__images')) return;
+      tick();
+      startTimer();
+    });
 
     // Coalesce the close+open toggle pair into a single restart per frame so we
     // don't restart the cycle twice (which causes a visible blip).

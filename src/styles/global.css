@@ -516,6 +516,12 @@ details.project[open]::details-content {
   background: rgba(255, 255, 255, 0.03);
 }
 
+/* Only cycling galleries are clickable to advance. Right-arrow cursor
+   with a black halo so it reads on any image. */
+.project-gallery[data-cycle="true"] .project-gallery__images {
+  cursor: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24'><path d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='black' stroke-opacity='0.5' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'/><path d='M5 12h14M13 6l6 6-6 6' fill='none' stroke='white' stroke-width='1.4' stroke-linecap='round' stroke-linejoin='round'/></svg>") 12 12, pointer;
+}
+
 .project-image {
   grid-area: stack;
   display: block;
