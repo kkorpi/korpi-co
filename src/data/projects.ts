@@ -53,6 +53,7 @@ export const projects: Project[] = [
     year: 'Current Client',
     image: [
       '/projects/sp-particles.mp4',
+      '/projects/p-superpilot-3.png',
       '/projects/p-superpilot.webp',
     ],
     imageAlt: 'AI search visibility and landing page generation for ecommerce.',
