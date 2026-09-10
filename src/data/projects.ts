@@ -122,6 +122,8 @@ export const projects: Project[] = [
       '/projects/gopro-1.mp4',
     ],
     imageAlt: 'On the on-device UX for a new compact camera.',  // optional
+    url: 'https://holdfast.studio/work/gopro',
+    urlLabel: 'Case study',
     details:
       'GoPro wanted to ship a smaller, more durable Hero: no touchscreen, two buttons, 72×32 pixel two-color screen. The design problem was a full-featured camera UX on 8-bit hardware that a snowboarder in whiteout conditions could operate without looking. I led the UX end to end.',
   },
@@ -170,6 +172,24 @@ export const projects: Project[] = [
       'Skin Clinical was a zero-to-one iOS app built around an AI model that analyzed a user\'s selfie, scored skin severity, and mapped problem areas back onto the photo. From there it sold them into a personalized subscription skincare plan they could track and re-test against over time. I designed the full experience: capture flow, analysis viz, results, and the ongoing routine.',
   },
   {
+    // Year TBD from Kevin; sits here pending a date.
+    title: 'Dishlist',
+    description: 'Food discovery experiment inside Snap\'s R&D division.',
+    image: '/projects/p-dishlist.webp',
+    imageAlt: 'Dishlist food discovery app for Snap R&D.',
+    details:
+      'Restaurant apps organize around restaurants; people crave dishes. Dishlist built discovery on photos of the food itself, curated by chefs and foodies. It shipped as a white-label app with no Snap branding, an experiment released into the wild.',
+  },
+  {
+    // Year TBD from Kevin; sits here pending a date.
+    title: 'Nagarro AI Travel Concept',
+    description: 'AI travel assistant concept spanning planning, booking, and the trip.',
+    image: '/projects/p-nagarro.webp',
+    imageAlt: 'AI travel assistant concept.',
+    details:
+      'Pure concept work for Nagarro\'s travel vertical. Travel apps at the time handled planning, booking, or the trip itself, and nothing connected all three. The concept was an AI messaging assistant that carried a traveler across the whole arc, from planning through booking to the trip underway.',
+  },
+  {
     title: 'Moment Pro Camera',
     description: 'Design Director and Head of Apps Products.',
     year: '2017–2019',
@@ -178,6 +198,8 @@ export const projects: Project[] = [
       '/projects/moment-2.webp',
     ],
     imageAlt: 'Design Director and Head of Apps Products.',  // optional
+    url: 'https://holdfast.studio/work/moment',
+    urlLabel: 'Case study',
     details:
       'Moment was a hardware company that needed a software business. I led that zero to one: a pro camera app built around the thesis that creators wanted real tools, not filters. Manual controls, RAW, focus peaking, zebras, a histogram that didn\'t lie. SLR feel on a phone screen without making the phone screen feel like an SLR.',
   },
