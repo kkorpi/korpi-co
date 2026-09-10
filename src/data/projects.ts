@@ -26,9 +26,11 @@ export const projects: Project[] = [
   },
   {
     title: 'Primordial Soup',
-    description: 'Darren Aronofsky\'s generative film studio. ',
+    description: 'Product design for a generative film studio.',
     year: 'Current Client',
-    image: '/projects/p-psl.webp',
+    // The site's living wordmark, captured from the primordialsoup.ai
+    // footer canvas and looped.
+    image: '/projects/p-psl.mp4',
     imageAlt: 'Primordial Soup AI film studio.',  // optional
     details:
       'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. Designing for a craft whose conventions don\'t exist yet means the work is less about features and more about giving a small team enough structure to stay coherent while moving fast.',
