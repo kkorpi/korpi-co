@@ -4,8 +4,9 @@
     {
       "name": "korpi-co",
       "runtimeExecutable": "pnpm",
-      "runtimeArgs": ["dev", "--port", "4330"],
-      "port": 4330
+      "runtimeArgs": ["dev"],
+      "port": 4321,
+      "autoPort": true
     }
   ]
 }
