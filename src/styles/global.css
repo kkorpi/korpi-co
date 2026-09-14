@@ -24,9 +24,8 @@
   box-sizing: border-box;
 }
 
-/* The one chromatic note, shared with holdfast.studio: selection runs
-   indigo. */
-::selection { background: #615fff; color: #ffffff; }
+/* Selection is the palette inverted, matching holdfast.studio. */
+::selection { background: var(--heading); color: var(--bg); }
 
 html {
   -webkit-text-size-adjust: 100%;
