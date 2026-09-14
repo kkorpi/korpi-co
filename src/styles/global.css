@@ -1,13 +1,16 @@
 :root {
   color-scheme: dark;
-  --bg: #0a0a0a;
+  /* Cool palette, rationalized with holdfast-studio 2026-09-14: the
+     ground matches its dark 001 and the ink its 011. The alpha layers
+     below are relative and ride the cool ground unchanged. */
+  --bg: #08090b;
   --fg: rgba(255, 255, 255, 0.7);
-  --heading: #ffffff;
+  --heading: #f9fbfb;
   --muted: rgba(255, 255, 255, 0.4);
   --more-muted: rgba(255, 255, 255, 0.2);
   --rule: rgba(255, 255, 255, 0.08);
   --row-hover: rgba(255, 255, 255, 0.04);
-  --link: #ffffff;
+  --link: #f9fbfb;
   --max-width: 750px;
   --ease: cubic-bezier(0.32, 0.72, 0, 1);
   --font-sans: "InterVariable", "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", system-ui, sans-serif;
@@ -20,6 +23,10 @@
 *::after {
   box-sizing: border-box;
 }
+
+/* The one chromatic note, shared with holdfast.studio: selection runs
+   indigo. */
+::selection { background: #615fff; color: #ffffff; }
 
 html {
   -webkit-text-size-adjust: 100%;
@@ -62,7 +69,7 @@ h3 {
   letter-spacing: 0;
   line-height: 1.4;
 }
-header h1 {color:#fff}
+header h1 {color: var(--heading)}
 .hero-gallery {
   display: grid;
   grid-template-areas: "stack";
