@@ -26,19 +26,20 @@ export const projects: Project[] = [
   },
   {
     title: 'Primordial Soup',
-    description: 'Product design for a generative film studio.',
-    year: 'Current Client',
+    description: 'Research and early explorations for a generative film studio.',
+    // Confirm the start year with Kevin.
+    year: '2025–2026',
     // The site's living wordmark, captured from the primordialsoup.ai
     // footer canvas and looped.
     image: '/projects/p-psl.mp4',
     imageAlt: 'Primordial Soup AI film studio.',  // optional
     details:
-      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. Designing for a craft whose conventions don\'t exist yet means the work is less about features and more about giving a small team enough structure to stay coherent while moving fast.',
+      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. My work there settled into early product explorations and a formative research program. Every session transcribed and distilled to a one-pager. Findings aggregated into a library of the tasks and workflows that actually make up generative filmmaking. Group sessions logged and synthesized back in as supporting evidence. The artifacts stay with the studio. The method travels.',
   },
   {
     title: 'Simular',
     description: 'Multi-agent platform where agents do real work on their own computers.',
-    year: 'Current Client',
+    year: '2025–2026',
     image: [
       { src: '/projects/simular-animated.webp', replay: true },
       '/projects/p-simular-1.webp',
@@ -47,12 +48,12 @@ export const projects: Project[] = [
     ],    
     imageAlt: 'Simular multi-agent computer use platform.',  // optional
     details:
-      'Embedded early, designing the surfaces where humans and agents co-operate: task handoff, inspection, interruption, repair. The hard part isn\'t the clicking. It\'s making agents comprehensible enough that people trust them without babysitting every step. Legibility is the product. If you can\'t see what it\'s about to do and why, you can\'t let it run.',
+      'Designed Sai, Simular\'s agent product, from first sketch to shipped. The whole interface layer for working alongside an agent, what you see while it drives, when it asks before acting, how you step in, and how you teach it something new. I designed it by building it, a working prototype of the entire product from signup through daily use, made by directing AI agents daily. Legibility is the product. If you can\'t see what an agent is about to do and why, you can\'t let it run.',
   },
   {
     title: 'Superpilot',
     description: 'AI search visibility and landing page generation for ecommerce.',
-    year: 'Current Client',
+    year: '2025–2026',
     image: [
       '/projects/sp-particles.mp4',
       '/projects/p-superpilot-3.png',
@@ -60,12 +61,12 @@ export const projects: Project[] = [
     ],
     imageAlt: 'AI search visibility and landing page generation for ecommerce.',
     details:
-      'Superpilot helps brands show up in AI search. The product analyzes how a site performs across both traditional SEO and AI engines like ChatGPT and Gemini, then generates landing pages tied to real product catalogs and brand systems. Connected to Salesforce Commerce Cloud and Shopify, with ongoing monitoring of visibility and opportunities across terms. I work on V1 product design and ongoing optimization of the platform.',
+      'Superpilot helps brands show up in AI search. The product analyzes how a site performs across both traditional SEO and AI engines like ChatGPT and Gemini, then generates landing pages tied to real product catalogs and brand systems. Connected to Salesforce Commerce Cloud and Shopify, with ongoing monitoring of visibility and opportunities across terms. I worked on V1 product design and ongoing optimization of the platform.',
   },
   {
     title: 'Onboard AI',
     description: 'Multi-stakeholder workflows for a medical AI governance platform.',
-    year: '2024–2025',
+    year: '2025–2026',
     image: '/projects/p-onboard.webp',
     imageAlt: 'Multi-stakeholder workflows for a medical AI platform.',  // optional
     details:
@@ -80,7 +81,7 @@ export const projects: Project[] = [
     imageAlt: 'Frame.io',  // optional
     urlLabel: 'Frame.io',
     details:
-      'Senior Staff Designer at Frame.io, leading initiatives across asset share/review, generative AI features, and third-party integrations.',
+      'Senior Staff Designer at Frame.io. Led initiatives across asset share/review, generative AI features, and third-party integrations.',
   },
   {
     title: 'Google Pixel Watch',
