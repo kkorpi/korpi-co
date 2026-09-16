@@ -27,8 +27,7 @@ export const projects: Project[] = [
   {
     title: 'Primordial Soup',
     description: 'Research and early explorations for a generative film studio.',
-    // Confirm the start year with Kevin.
-    year: '2025–2026',
+    year: '2026',
     // The site's living wordmark, captured from the primordialsoup.ai
     // footer canvas and looped.
     image: '/projects/p-psl.mp4',
