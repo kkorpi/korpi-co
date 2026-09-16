@@ -216,17 +216,21 @@ a {
   text-decoration: none;
 }
 
+/* Holdfast's two-layer underline: a dim line always present so the
+   link is findable, and a bright one that wipes across it on hover. */
 a .link-text {
-  background-image: linear-gradient(currentColor, currentColor);
-  background-position: 0 calc(100% - 0.05em);
+  background-image:
+    linear-gradient(currentColor, currentColor),
+    linear-gradient(var(--more-muted), var(--more-muted));
+  background-position: 0 calc(100% - 0.05em), 0 calc(100% - 0.05em);
   background-repeat: no-repeat;
-  background-size: 0 1px;
+  background-size: 0 1px, 100% 1px;
   transition: background-size 320ms var(--ease);
 }
 
 a:hover .link-text,
 a:focus-visible .link-text {
-  background-size: 100% 1px;
+  background-size: 100% 1px, 100% 1px;
 }
 
 a:focus-visible {
@@ -417,7 +421,7 @@ details.project[open] > summary .marker {
 }
 
 .project-meta a .link-text {
-  background-size: 100% 1px;
+  background-size: 100% 1px, 100% 1px;
 }
 
 .project-meta a:hover,
