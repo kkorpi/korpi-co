@@ -33,7 +33,7 @@ export const projects: Project[] = [
     image: '/projects/p-psl.mp4',
     imageAlt: 'Primordial Soup AI film studio.',  // optional
     details:
-      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. My work there settled into concept designs and an end-to-end formative research program, tool independent and LLM synthesized. Every session transcribed and distilled to a one-pager. Findings aggregated into a library of the tasks and workflows that actually make up generative filmmaking. Group sessions logged and synthesized back in as supporting evidence. The artifacts stay with the studio. The method travels.',
+      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. My work there settled into concept designs and an end-to-end formative research program, tool independent and LLM synthesized. Raw sessions in, a living library of the tasks and workflows that make up generative filmmaking out.',
   },
   {
     title: 'Simular',
