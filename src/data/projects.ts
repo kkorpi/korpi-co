@@ -26,14 +26,14 @@ export const projects: Project[] = [
   },
   {
     title: 'Primordial Soup',
-    description: 'Research and early explorations for a generative film studio.',
+    description: 'Concept designs and an end-to-end formative research program for a generative film studio.',
     year: '2026',
     // The site's living wordmark, captured from the primordialsoup.ai
     // footer canvas and looped.
     image: '/projects/p-psl.mp4',
     imageAlt: 'Primordial Soup AI film studio.',  // optional
     details:
-      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. My work there settled into early product explorations and a formative research program. Every session transcribed and distilled to a one-pager. Findings aggregated into a library of the tasks and workflows that actually make up generative filmmaking. Group sessions logged and synthesized back in as supporting evidence. The artifacts stay with the studio. The method travels.',
+      'Embedded with the team at Darren Aronofsky\'s studio. Generative production doesn\'t fit the shapes of the traditional pipeline. The medium is still being invented, and so are the tools for making it. My work there settled into concept designs and an end-to-end formative research program, tool independent and LLM synthesized. Every session transcribed and distilled to a one-pager. Findings aggregated into a library of the tasks and workflows that actually make up generative filmmaking. Group sessions logged and synthesized back in as supporting evidence. The artifacts stay with the studio. The method travels.',
   },
   {
     title: 'Simular',
